@@ -1,0 +1,349 @@
+:root {
+    --fonte-nunito: 'Nunito', sans-serif;
+    --principal: #0F1016;
+    --principal2: #011c1c;
+    --textoDestacado: #85FFA7;
+    --textoinput: #77907E;
+    --textoLabel: #FFFFFF;
+    --textobotões: #000000;
+    --botoes: #85FFA8;
+    --hbotoes: #498f5d;
+    --bordas: #6DEF92;
+    --label: #243C2E;
+    --back2: #73c780;
+    --textodiscreto: #707070;
+    --hoverCard:#15463f;
+    --fundCat: #1B3931;
+    --corCat: #FFFFFF;
+}
+* {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    box-sizing: border-box;
+    font-family: var(--fonte-nunito);
+}
+*::selection{
+    background-color: teal;
+}
+body {
+    display: flex;
+    background-color: var(--principal);
+    font-family: var(--fonte-nunito);
+}
+.container{
+    display: flex;
+    flex: 1;
+}
+
+
+
+/*SideBar*/
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    width: 250px;
+    height: 100vh;
+    padding-top: 20px;
+    border-right: 4px solid var(--bordas);
+    color: var(--textoDestacado);
+}
+.logo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+}
+.logo img{
+    width: 50px;
+    user-select: none;
+}
+.usuarioLogado{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 60px;
+    margin-top: 40px;
+    width: 100px;
+}
+.imgLogado{
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+}
+.imgLogado img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 100px;
+}
+.usuarioLogado a{
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--textoLabel);
+}
+.menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    user-select: none;
+    margin-left: 40px;
+    margin-top: 40px;
+}
+.menu a{
+    text-decoration: none;
+    width: 180px;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: var(--textoLabel);
+}
+.menu a:hover{
+    border-radius: 10px;
+    color: var(--principal);
+    background-color: var(--bordas);
+}
+.menu i{
+    width: 15px;
+    font-size: 18px;
+    margin-right: 10px;
+    color: var(--bordas);
+}
+.menu a:hover i {
+    color: var(--principal);
+}
+
+
+
+
+
+.principal{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+    margin-left: 250px;  /* largura da sidebar */
+    margin-right: 350px; /* largura da lateral */
+    overflow-y: auto;
+}
+.dicas{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--textoLabel);
+}
+
+.cabecalho{
+    width: 900px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tituloDic{
+    display: flex;
+    flex-direction: column;
+
+}
+.tituloDic a{
+    text-decoration: none;
+    font-weight: 800;
+    color: var(--textoDestacado);
+}
+.tit{
+    font-size: 32px;
+}
+.salvar{
+    text-decoration: none;
+    font-size: 28px;
+    padding: 5px 10px;
+    border-radius: 25px;
+    color: var(--textoDestacado);
+}
+.salvar:hover{
+    background-color: var(--hoverCard);
+}
+.dicaImagem{
+    align-items: center;
+    width: 800px;
+    margin: 25px 0px 50px 0px;
+}
+.dicaImagem img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.conteudoDica{
+    width: 900px;
+    font-size: 18px;
+}
+
+
+.postar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 15px;
+    width: 60%;
+    height: 150px;
+    border-radius: 10px;
+    background-color: var(--principal2);
+}
+.textoPost{
+    border: none;
+    cursor: text;
+    outline: none;
+    resize: none;
+    width: 90%;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    align-self: center;
+    color: var(--textoLabel);
+    border: var(--bordas) solid 1px;
+    background-color: var(--principal2);
+}
+.textoPost::placeholder{
+    font-weight: 400;
+}
+.comentar{
+    align-self: flex-end;
+    margin-right: 45px;
+    width: 100px;
+    padding: 5px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--botoes);
+    color: var(--principal);
+}
+
+
+/*Lateral*/
+.lateral {
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    overflow-y: auto;
+    box-sizing: border-box;
+    border-left: 4px solid var(--bordas);
+    color: var(--textoDestacado);
+}
+.lateral::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* opcional: fundo transparente */
+}
+.dica{
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 5px;
+    border: var(--bordas) 1px solid;
+}
+.dica h3{
+    align-self:  left;
+}
+.dica p{
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--textoLabel);
+}
+
+/*Miniaturas*/
+.atividades {
+    width: 300px;
+    max-height: 100vh;
+    padding: 15px;
+}
+.atividades h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: var(--textoDestacado);
+}
+.att_perfil {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+    background-color: var(--principal2);
+    padding: 10px;
+    border-radius: 10px;
+}
+.att_imgPerfil {
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.att_imgPerfil img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.att_infoPerfil {
+    flex-direction: column;
+}
+.att_nomeEtempo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+.att_username {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--textoLabel);
+}
+.att_timestamp {
+    font-size: 10px;
+    color: var(--textodiscreto);
+}
+.att_pub-content {
+    font-size: 12px;
+    color: var(--textoLabel);
+    max-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.att_anexo {
+    margin-top: 5px;
+    width: 100%;
+}
+.att_imgPost {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.att_link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: background-color 0.2s;
+}
+.att_link:hover .att_perfil {
+    background-color: var(--hoverCard); /* defina essa cor ou use algo como #e0f7e9 */
+}

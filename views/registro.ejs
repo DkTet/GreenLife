@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/logRegis.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://kit.fontawesome.com/b9ccfa25cd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="box1">
+        <div class="bemVindo">
+            <h1>Seja bem vindo à GreenLife</h1>
+            <h2>Adoraríamos ter sua companhia</h2>
+        </div>
+        <img src="/images/imageLogin.png" alt="Bem Vindo" class="imgLogin">
+    </div>
+
+    <div class="box2">
+        <div class="insideBox">
+            <a href="/timeline"><img src="/images/logo.png" alt="Logo" class="imgLogo"></a>
+            <div class="msg">GreenLife juntos por um futuro mais verde!</div>
+
+            <% if (typeof mensagem !== 'undefined') { %>
+                <div class="<%= sucesso ? 'mensagemSucesso' : 'mensagemErro' %>">
+                    <%= mensagem %>
+                </div>
+            <% } %>
+
+            <form class="formsLogin" action="/registro" method="POST">
+
+                <label for="usuario">Usuário</label>
+                <div class="inputDados">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="text" class="placeDados" name="usuario" placeholder="Digite seu usuario...">
+                </div>
+
+                <label for="email">E-mail</label>
+                <div class="inputDados">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="text" class="placeDados" name="email" placeholder="Digite seu E-mail...">
+                </div>
+
+                <label for="senha">Senha</label>
+                <div class="inputDados">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" class="placeDados" name="senha" placeholder="Digite sua Senha...">
+                </div>
+
+                <label for="confsenha">Confirme a Senha</label>
+                <div class="inputDados">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" class="placeDados" name="confsenha" placeholder="Confirme sua Senha...">
+                </div>
+
+                <button type="submit" class="botaoLogin">Registre-se</button>
+            </form>
+
+            <div class="semconta">Já possui conta? <a href="/login">Faça o Login!</a></div>
+        </div>
+    </div>
+</body>
+
+</html>

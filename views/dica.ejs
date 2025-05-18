@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/dica.css">
+    <link rel="stylesheet" href="/stylesheets/timeline.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://kit.fontawesome.com/b9ccfa25cd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="/images/logo.png" alt="Logo GreenLife">
+                <h1>GreenLife</h1>
+            </div>
+
+            <div class="usuarioLogado">
+                <% if (usuario.usu_codigo) { %>
+                    <div class="imgLogado"><img src="/images/imgPerfis/<%= usuario.usu_foto %>" alt="Avatar"></div>
+                    <p><a href="/perfil/<%= usuario.usu_codigo %>"><%= usuario.usu_nomeusuario %>#<%= usuario.usu_codigo %></a></p>
+                <% } %>
+            </div>
+
+            <nav class="menu">
+                <a href="/timeline" class="menu-item"><i class="fa-solid fa-house"></i> Página Inicial</a>
+                <a href="/dicas" class="menu-item"><i class="fa-solid fa-fire-flame-curved"></i> Dicas</a>
+                <a href="/perfil/<%= usuario.usu_codigo %>/salvos" class="menu-item"><i class="fa-solid fa-bookmark"></i> Salvos</a>
+                <a href="/perfil/<%= usuario.usu_codigo %>" class="menu-item"><i class="fa-solid fa-user"></i> Perfil</a>
+                <a href="/sair" class="menu-item"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+            </nav>
+        </aside>
+
+        <main class="principal">
+            <div class="dicas">
+                <% if (dica) { %>
+                    <div class="cabecalho">
+                        <div class="tituloDic">
+                            <p>Dicas > <a href="/dicas"><%= dica.cat_nome %></a></p>
+                            <strong class="tit"><%= dica.dic_titulo %></strong>
+                            <small class="temp"><%= dica.dic_data %></small>
+                        </div>
+                        <div class="salvarDica">
+                            <a href="/salvarDic/<%= dica.dic_codigo %>" class="salvar"><i class="fa-regular fa-bookmark"></i></a>
+                        </div>
+                    </div>
+                    <% if (dica.dic_imagem) { %>
+                        <div class="dicaImagem">
+                            <img src="/images/imgDicas/<%= dica.dic_imagem %>" alt="Imagem da Dica">
+                        </div>
+                    <% } %>
+                    <div class="conteudoDica">
+                        <p><%- dica.dic_conteudo %></p>
+                    </div>
+                <% } else { %>
+                    <p class="no-pub">Nenhuma Dica para mostrar.</p>
+                <% } %>
+            </div>
+
+
+            <form class="postar" method="post" action="/fazercomentarioDica/<%= dica.dic_codigo %>">
+                <textarea class="textoPost" type="text" placeholder="Faça um Comentário..." name="conteudo" required></textarea>
+                <button type="submit" class="comentar">Comentar</button>
+            </form>
+
+            <div class="comentarios">
+                <h3>Comentários</h3>
+                <% if (comentario.length > 0) { %>
+                <% comentario.forEach(com => { %>
+                    <% renderizarComentario(com); %>
+                <% }) %>
+                <% } else { %>
+                    <p>Nenhum comentário ainda.</p>
+                <% } %>
+            </div>
+        </main>
+
+        <aside class="lateral">
+            <div class="dica">
+                <h3>Dica do dia</h3>
+                <% dicaDia.forEach(dia => { %>
+                    <p><%= dia.dia_conteudo %></p>
+                <% }) %>
+            </div>
+
+            <div class="atividades">
+                <h3>Atividades Populares</h3>
+                <% if (atividades && atividades.length > 0) { %>
+                        <% atividades.forEach(atv => { %>
+                            <a href="/responderPubli/<%= atv.pub_codigo %>" class="att_link">
+                                <div class="att_perfil">
+                                    <div class="att_imgPerfil">
+                                        <img src="/images/imgPerfis/<%= atv.usu_foto %>" alt="Avatar">
+                                    </div>
+                                    <div class="att_infoPerfil">
+                                        <div class="att_nomeEtempo">
+                                            <strong class="att_username"><%= atv.usu_nomeusuario %>#<%= atv.usu_codigo %></strong>
+                                            <p class="att_timestamp"><%= atv.pub_criado %></p>
+                                        </div>
+                                        <p class="att_pub-content"><%= atv.pub_conteudo %></p>
+                                        <div class="att_anexo"><% if (atv.pub_anexo) { %> <img src="/images/imgPosts/<%= atv.pub_anexo %>" alt="Imagem do Post" class="att_imgPost"><% } %></div>
+                                    </div>
+                                </div>
+                            </a>
+                        <% }) %>
+                <% } else { %>
+                    <p class="no-pub">Nenhuma publicação para mostrar.</p>
+                <% } %>
+            </div>
+        </aside>
+    </div>
+</body>
+
+<% function renderizarComentario(comentario) { %>
+    <div class="post">
+        <div class="perfil">
+        <div class="imgPerfil">
+            <img src="/images/imgPerfis/<%= comentario.usu_foto %>" alt="Avatar" class="imgComent">
+        </div>
+        <div class="infoPerfil">
+            <div class="nomeEtempo">
+            <strong><%= comentario.usu_nomeusuario %>#<%= comentario.usu_codigo %></strong>
+            <p class="timestamp"><%= comentario.com_criado %></p>
+            </div>
+            <p class="pub-content"><%= comentario.com_conteudo %></p>
+        </div>
+        </div>
+        <div class="pub-actions">
+        <a href="/curtirComent/<%= comentario.com_codigo %>"><i class="fa-solid fa-heart"></i><span><%= comentario.com_curtidas || 0 %></span></a>
+        <a href="/deslikeComent/<%= comentario.com_codigo %>"><i class="fa-solid fa-heart-crack"></i><span><%= comentario.com_deslikes || 0 %></span></a>
+        <a><i class="fa-solid fa-comments" style="cursor:pointer;" onclick="toggleResposta('<%= comentario.com_codigo %>')"> </i></a>
+        <!-- Formulário de resposta, inicialmente oculto TERMINAR A PARTE DE RESPONDER COMENTARIOs -->
+        <form id="resposta-<%= comentario.com_codigo %>" method="post" action="/responderComentDica/<%= dica.dic_codigo %>/<%= comentario.com_codigo %>" style="display:none; margin-top: 10px;">
+            <div class="form-resposta">
+                <textarea name="conteudo" required placeholder="Escreva sua resposta..." class="textRespC"></textarea>
+                <button type="submit" class="butaoRespC">Enviar</button>
+            </div>
+        </form>
+        </div>
+
+        <% if (comentario.respostas && comentario.respostas.length > 0) { %>
+            <div class="respostas" style="margin-left: 2rem;">
+                <% comentario.respostas.forEach(resp => { %>
+                <% renderizarComentario(resp); %>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+<% } %>
+
+<script>
+  function toggleResposta(id) {
+    const form = document.getElementById('resposta-' + id);
+    if (form.style.display === 'none' || form.style.display === '') {
+      form.style.display = 'block';
+    } else {
+      form.style.display = 'none';
+    }}
+</script>
+
+</html>

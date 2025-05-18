@@ -1,0 +1,148 @@
+:root {
+    --fonte-nunito: 'Nunito', sans-serif;
+    --principal: #0F1016;
+    --textoDestacado: #85FFA7;
+    --textoinput: #77907E;
+    --textoLabel: #FFFFFF;
+    --textobotões: #000000;
+    --botoes: #85FFA8;
+    --bordas: #6DEF92;
+    --label: #243C2E;
+}
+* {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    box-sizing: border-box;
+    font-family: var(--fonte-nunito);
+}
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    background-color: var(--principal);
+}
+.box1, .box2 {
+    width: 50%;
+    height: 100vh;
+    padding: 40px;
+    user-select: none;
+}
+
+/*Box 1*/
+.box1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--textoDestacado);
+}
+.imgLogin {
+    width: 70%;
+}
+
+/*Box 2*/
+.box2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--textoDestacado);
+}
+.imgLogo{
+    width: 65px;
+}
+.insideBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    border-radius: 25px;
+    border: solid var(--bordas) 5px;
+    box-shadow: 0px 5px 80px var(--bordas);
+    background-color: var(--principal);
+    padding: 20px 40px;
+}
+.msg {
+    margin-top: 15px;
+    color: var(--botoes);
+    font-weight: 600;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.formsLogin{
+    display: flex;
+    flex-direction: column;
+}
+label{
+    font-size: 18px;
+}
+.inputDados {
+    width: 300px;
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    align-items: center;
+    background-color: var(--label);
+}
+.inputDados i {
+    font-size: 20px;
+}
+.placeDados {
+    width: 100%;
+    font-size: 16px;
+    margin-left: 8px;
+    border: none;
+    cursor: text;
+    outline: none;
+    background-color: transparent;
+    color: var(--textoinput);
+}
+.botaoLogin {
+    cursor: pointer;
+    align-self: center;
+    min-width: 150px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 900;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    background-color: var(--botoes);
+    box-shadow: 0px 0px 20px -4px var(--bordas);
+}
+.botaoLogin:hover {
+    background-color: var(--bordas) ;
+}
+.semconta {
+    color: white;
+}
+.semconta a {
+    text-decoration: none;
+    color: var(--bordas);
+}
+.semconta a:hover {
+    color: var(--botoes);
+}
+.mensagemErro {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+}
+.mensagemSucesso {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+}
