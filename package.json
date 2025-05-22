@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "dev": "nodemon ./bin/www",
-    "test": "jest",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
     "coverage": "jest --coverage"
   },
   "dependencies": {

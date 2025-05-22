@@ -17,6 +17,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Login - GreenLife' });
 });
 
+router.get('/teste', function(req, res, next) {
+  res.render('teste',);
+});
+
 // Get para Login
 router.get('/login', function(req, res, next) {
   res.render('index', { title: 'Login - GreenLife' });

@@ -1,0 +1,81 @@
+body {
+    background-color: #1e1e1e; /* Cor de fundo escura */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.cadastro-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #333; /* Fundo do card */
+    padding: 40px 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    text-align: center;
+    width: 320px;
+}
+
+.cadastro-box h2 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.cadastro-box form input {
+    width: 80%;
+    padding: 12px 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+}
+
+.confirmar-btn {
+    width: 100%;
+    background-color: #2a62e5; /* Azul destacado */
+    color: white;
+    padding: 12px 0;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.confirmar-btn:hover {
+    background-color: #1d4bb8; /* Azul mais escuro no hover */
+}
+
+.social-login {
+    margin-top: 15px;
+}
+
+.social-login p {
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icons a img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.social-icons a img:hover {
+    transform: scale(1.1);
+}

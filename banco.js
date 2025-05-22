@@ -16,6 +16,12 @@ async function conectarBD() {
     return global.connection;
 }
 
+async function fecharBD() {
+    if (global.connection && global.connection.end) {
+        await global.connection.end();
+    }
+}
+
 
 
 
@@ -424,6 +430,6 @@ function montarHierarquiaComentarios(lista) {
 //FUNÇÔES de Salvos
 
 
-module.exports= {buscarUsuario, cadastrarUsuario, buscarFeed, buscarDicaDoDia, fazerPost, BuscarPubliPorId, repostarPubli, curtirPubli, salvarPubli, buscarAtividades, buscarComentariosPubli, BuscarPubliPorIdResp, fazerComentPubli, comentarioComent, curtirComent, deslikeComent, buscarDicas, buscarCategorias, buscarDicaId, salvarDica, buscarComentariosDicas, fazerComentDica, comentarioComentDica}
+module.exports= {conectarBD, fecharBD, buscarUsuario, cadastrarUsuario, buscarFeed, buscarDicaDoDia, fazerPost, BuscarPubliPorId, repostarPubli, curtirPubli, salvarPubli, buscarAtividades, buscarComentariosPubli, BuscarPubliPorIdResp, fazerComentPubli, comentarioComent, curtirComent, deslikeComent, buscarDicas, buscarCategorias, buscarDicaId, salvarDica, buscarComentariosDicas, fazerComentDica, comentarioComentDica}
 
 
