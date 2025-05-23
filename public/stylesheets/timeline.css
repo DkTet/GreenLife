@@ -293,6 +293,10 @@ body {
     display: flex;
     align-items: center;
 }
+.nomeEtempo a{
+    color: var(--textoLabel);
+    text-decoration: none;
+}
 .username{
     font-size: 18px;
     user-select:text;
@@ -430,6 +434,10 @@ body {
     align-items: center;
     gap: 8px;
     margin-bottom: 2px;
+}
+.att_nomeEtempo a {
+    color: var(--textoLabel);
+    text-decoration: none;
 }
 .att_username {
     font-size: 14px;

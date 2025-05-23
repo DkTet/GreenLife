@@ -1,0 +1,35 @@
+
+<link rel="stylesheet" href="/stylesheets/timeline.css">
+<aside class="lateral">
+    <div class="dica">
+        <h3>Dica do dia</h3>
+        <% dicaDia.forEach(dia => { %>
+            <p><%= dia.dia_conteudo %></p>
+        <% }) %>
+    </div>
+
+    <div class="atividades">
+        <h3>Atividades Populares</h3>
+        <% if (atividades && atividades.length > 0) { %>
+                <% atividades.forEach(atv => { %>
+                    <a href="/responderPubli/<%= atv.pub_codigo %>" class="att_link">
+                        <div class="att_perfil">
+                            <div class="att_imgPerfil">
+                                <img src="/images/imgPerfis/<%= atv.usu_foto %>" alt="Avatar">
+                            </div>
+                            <div class="att_infoPerfil">
+                                <div class="att_nomeEtempo">
+                                    <strong class="att_username"><a href="/perfil/<%= atv.usu_codigo %>"><%= atv.usu_nomeusuario %>#<%= atv.usu_codigo %></a></strong>
+                                    <p class="att_timestamp"><%= atv.pub_criado %></p>
+                                </div>
+                                <p class="att_pub-content"><%= atv.pub_conteudo %></p>
+                                <div class="att_anexo"><% if (atv.pub_anexo) { %> <img src="/images/imgPosts/<%= atv.pub_anexo %>" alt="Imagem do Post" class="att_imgPost"><% } %></div>
+                            </div>
+                        </div>
+                    </a>
+                <% }) %>
+        <% } else { %>
+            <p class="no-pub">Nenhuma publicação para mostrar.</p>
+        <% } %>
+    </div>
+</aside>

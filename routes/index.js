@@ -183,6 +183,79 @@ router.get('/deslikeComent/:id', async function(req, res, next) {
 
 
 
+router.get('/perfil/:id', async function(req, res, next) {
+  verificarLogin(res);
+  const id = parseInt(req.params.id);
+  const perfil = await global.db.buscarUsuarioPorID(id);
+  const atividades = await global.db.buscarAtividades();
+  const publicacoes = await global.db.buscarFeedPorId(id);
+  const dicaDia = await global.db.buscarDicaDoDia();
+  res.render('perfil', {
+    title: `Perfil`,
+    usuario: global.usuarioLogado,
+    publicacoes,
+    perfil,
+    atividades,
+    dicaDia
+  });
+});
+
+router.get('/perfil/:id/salvos', async function(req, res, next) {
+  verificarLogin(res);
+  const id = parseInt(req.params.id);
+  const perfil = await global.db.buscarUsuarioPorID(id);
+  const atividades = await global.db.buscarAtividades();
+  const publicacoes = await global.db.buscarFeedSalvosPorId(id);
+  const dicaDia = await global.db.buscarDicaDoDia();
+  const dicas = await global.db.buscarDicasPorId(id);
+  res.render('perfilSalvos', {
+    title: `Perfil - Salvados`,
+    usuario: global.usuarioLogado,
+    dicas,
+    perfil,
+    atividades,
+    publicacoes,
+    dicaDia
+  });
+});
+
+
+router.get('/perfil/:id/comentarios', async function(req, res, next) {
+  verificarLogin(res);
+  const id = parseInt(req.params.id);
+  const perfil = await global.db.buscarUsuarioPorID(id);
+  const comentarios = await global.db.buscarComentariosPorId(id);
+  const publicacao = await global.db.BuscarPubliPorIdResp(id);
+  const atividades = await global.db.buscarAtividades();
+  const dicaDia = await global.db.buscarDicaDoDia();
+  res.render('perfilComentarios', {
+    title: `Perfil - Comentarios`,
+    usuario: global.usuarioLogado,
+    publicacao,
+    comentarios,
+    perfil,
+    atividades,
+    dicaDia
+  });
+});
+
+router.get('/perfil/:id/configs', async function(req, res, next) {
+  verificarLogin(res);
+  const id = parseInt(req.params.id);
+  const perfil = await global.db.buscarUsuarioPorID(id);
+  const atividades = await global.db.buscarAtividades();
+  const dicaDia = await global.db.buscarDicaDoDia();
+  res.render('perfilConfigurações', {
+    title: `Perfil - Configurações`,
+    usuario: global.usuarioLogado,
+    perfil,
+    atividades,
+    dicaDia
+  });
+});
+
+
+
 
 //
 // POSTS
@@ -258,6 +331,12 @@ router.post('/responderComentDica/:dicId/:comentId', async function(req, res, ne
   await global.db.comentarioComentDica(conteudo,global.usuarioLogado, dicId, comentId);
   res.redirect('back');
 });
+
+
+
+
+
+
 
 module.exports = router;
 

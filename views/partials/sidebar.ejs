@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/stylesheets/timeline.css">
+<aside class="sidebar">
+    <div class="logo">
+        <img src="/images/logo.png" alt="Logo GreenLife">
+        <h1>GreenLife</h1>
+    </div>
+
+    <div class="usuarioLogado">
+        <% if (usuario.usu_codigo) { %>
+            <div class="imgLogado"><img src="/images/imgPerfis/<%= usuario.usu_foto %>" alt="Avatar"></div>
+            <p><a href="/perfil/<%= usuario.usu_codigo %>/configs"><%= usuario.usu_nomeusuario %>#<%= usuario.usu_codigo %></a></p>
+        <% } %>
+    </div>
+
+    <nav class="menu">
+        <a href="/timeline" class="menu-item"><i class="fa-solid fa-house"></i> Página Inicial</a>
+        <a href="/dicas" class="menu-item"><i class="fa-solid fa-fire-flame-curved"></i> Dicas</a>
+        <a href="/perfil/<%= usuario.usu_codigo %>/salvos" class="menu-item"><i class="fa-solid fa-bookmark"></i> Salvos</a>
+        <a href="/perfil/<%= usuario.usu_codigo %>" class="menu-item"><i class="fa-solid fa-user"></i> Perfil</a>
+        <a href="/sair" class="menu-item"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+    </nav>
+</aside>

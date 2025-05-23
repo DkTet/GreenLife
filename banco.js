@@ -50,6 +50,19 @@ async function buscarUsuario(usuario){
     return user;
 }
 
+async function buscarUsuarioPorID(id) {
+    const conex = await conectarBD();
+    const sql = 'select * from usuarios where usu_codigo=?;';
+    const [usuarioEncontrado] = await conex.query(sql,[id]);
+    let user;
+    if (Array.isArray(usuarioEncontrado) && usuarioEncontrado.length > 0)
+        user = usuarioEncontrado[0];
+    else
+        user = null;
+    if (!user) return null;
+    return user;
+}
+
 
 
 
@@ -87,6 +100,67 @@ async function buscarFeed() {
     const [publicacoes] = await banco.execute(sql);
     return publicacoes;
 }
+
+
+
+async function buscarFeedPorId(id) {
+    const banco = await conectarBD();
+    const sql = `select 
+            p.pub_codigo,
+            p.pub_conteudo,
+            date_format(p.pub_criado , '%d %b %Y, %Hh%i') as pub_criado ,
+            p.pub_repostado,
+            p.pub_qtdrespostas,
+            p.pub_qtdrepostado,
+            p.pub_qtdcurtiu,
+            p.pub_qtdsalvo,
+            p.pub_anexo,
+            u.usu_nomeusuario,
+            u.usu_foto,
+            u.usu_codigo,
+            orig.usu_nomeusuario as user_original
+        from publicacoes p
+        join usuarios u on p.usu_codigo = u.usu_codigo
+        left join publicacoes p2 on p.pub_repostado = p2.pub_codigo
+        left join usuarios orig on p2.usu_codigo = orig.usu_codigo
+        where u.usu_codigo = ?
+        order by p.pub_criado desc
+        limit 100;`;
+    await banco.execute("set lc_time_names = 'pt_BR';");
+    const [publicacoes] = await banco.execute(sql, [id]);
+    return publicacoes;
+}
+
+
+async function buscarFeedSalvosPorId(id) {
+    const banco = await conectarBD();
+    const sql = `select 
+            p.pub_codigo,
+            p.pub_conteudo,
+            date_format(p.pub_criado , '%d %b %Y, %Hh%i') as pub_criado ,
+            p.pub_repostado,
+            p.pub_qtdrespostas,
+            p.pub_qtdrepostado,
+            p.pub_qtdcurtiu,
+            p.pub_qtdsalvo,
+            p.pub_anexo,
+            u.usu_nomeusuario,
+            u.usu_foto,
+            u.usu_codigo,
+            orig.usu_nomeusuario as user_original
+        from publicacoes p
+        join usuarios u on p.usu_codigo = u.usu_codigo
+        left join publicacoes p2 on p.pub_repostado = p2.pub_codigo
+        left join usuarios orig on p2.usu_codigo = orig.usu_codigo
+        join salvos_publicacoes sp on p.pub_codigo = sp.pub_codigo
+        where sp.usu_codigo = ?
+        order by p.pub_criado desc
+        limit 100;`;
+    await banco.execute("set lc_time_names = 'pt_BR';");
+    const [publicacoes] = await banco.execute(sql, [id]);
+    return publicacoes;
+}
+
 
 async function BuscarPubliPorId(id) {
     const banco = await conectarBD();
@@ -160,6 +234,30 @@ async function buscarComentariosPubli(id) {
     const [coments] = await banco.query(sql, [id]);
     return montarHierarquiaComentarios(coments);
 }
+
+
+
+async function buscarComentariosPorId(id) {
+    const banco = await conectarBD();
+    const sql = `select
+            c.com_codigo,
+            c.com_conteudo,
+            date_format(c.com_criado , '%d %b %Y, %Hh%i') as com_criado,
+            c.com_curtidas,
+            c.com_deslikes,
+            c.com_resposta,
+            u.usu_nomeusuario,
+            u.usu_foto,
+            u.usu_codigo
+        from comentarios c
+        join usuarios u on c.usu_codigo = u.usu_codigo
+        where u.usu_codigo = ?
+        order by c.com_criado desc;`;
+    const [coments] = await banco.query(sql, [id]);
+    return coments;
+}
+
+
 
 async function BuscarPubliPorIdResp(id) {
     const banco = await conectarBD();
@@ -278,6 +376,35 @@ async function buscarDicas() {
     const [dicas] = await banco.execute(sql);
     return dicas;
 }
+
+
+async function buscarDicasPorId(id) {
+    const banco = await conectarBD();
+    const sql = `select 
+            d.dic_codigo,
+            d.dic_titulo,
+            d.dic_conteudo,
+            d.dic_imagem,
+            date_format(d.dic_data, '%d %b %Y') as dic_data,
+            a.adm_codigo,
+            a.adm_nome,
+            c.cat_codigo,
+            c.cat_nome
+        from dicas d
+        join admins a on d.adm_codigo = a.adm_codigo
+        join categorias c on d.cat_codigo = c.cat_codigo
+        join salvos_dicas sd on d.dic_codigo = sd.dic_codigo
+        where sd.usu_codigo = ?
+        order by d.dic_data desc
+        limit 100;`;
+    await banco.execute("set lc_time_names = 'pt_BR';");
+    const [dicas] = await banco.execute(sql, [id]);
+    return dicas;
+}
+
+
+
+
 
 async function buscarDicaId(id) {
     const banco = await conectarBD();
@@ -430,6 +557,6 @@ function montarHierarquiaComentarios(lista) {
 //FUNÇÔES de Salvos
 
 
-module.exports= {conectarBD, fecharBD, buscarUsuario, cadastrarUsuario, buscarFeed, buscarDicaDoDia, fazerPost, BuscarPubliPorId, repostarPubli, curtirPubli, salvarPubli, buscarAtividades, buscarComentariosPubli, BuscarPubliPorIdResp, fazerComentPubli, comentarioComent, curtirComent, deslikeComent, buscarDicas, buscarCategorias, buscarDicaId, salvarDica, buscarComentariosDicas, fazerComentDica, comentarioComentDica}
+module.exports= {conectarBD, fecharBD, buscarUsuario, buscarUsuarioPorID, cadastrarUsuario, buscarFeed, buscarFeedPorId,  buscarDicaDoDia, fazerPost, BuscarPubliPorId, repostarPubli, curtirPubli, salvarPubli, buscarAtividades, buscarComentariosPubli, BuscarPubliPorIdResp, fazerComentPubli, comentarioComent, curtirComent, deslikeComent, buscarDicas, buscarCategorias, buscarDicaId, salvarDica, buscarComentariosDicas, fazerComentDica, comentarioComentDica, buscarComentariosPorId, buscarDicasPorId, buscarFeedSalvosPorId}
 
 

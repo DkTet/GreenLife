@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title><%= title %></title> 
     <link rel="stylesheet" href="/stylesheets/timeline.css">
+    <link rel="stylesheet" href="/stylesheets/dicas.css">
+    <link rel="stylesheet" href="/stylesheets/perfil.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
@@ -19,17 +21,47 @@
         <%- include('partials/sidebar') %>
 
         <main class="feed">
-            <form class="postar" method="post" action="/fazerpost" enctype="multipart/form-data">
-                <textarea class="textoPost" type="text" placeholder="Digite sua contribuição..." name="conteudo" required></textarea>
-                <p id="arquivoSelecionado"></p>
-                <div class="acoes">
-                    <label for="imagem" style="cursor: pointer; display: flex; align-items: center;">
-                        <i class="fa-solid fa-paperclip"></i> Anexar Imagem
-                    </label>
-                    <input type="file" id="imagem" name="imagem" accept="image/*" style="display: none;" onchange="mostrarNomeImagem()">
-                    <button type="submit" class="publicar">Publicar</button>
+            <div class="blocoPerfil">
+                <div class="imgBackground">
+                    <img src="/images/imgPerfilBack/<%= perfil.usu_imgBackground %>" alt="imgBackground">
                 </div>
-            </form>
+                <div class="imgPerfil">
+                    <img src="/images/imgPerfis/<%= perfil.usu_foto %>" alt="imgPerfil">
+                </div>
+                <div class="user">
+                    <strong><%= perfil.usu_nomeusuario %>#<%= perfil.usu_codigo %></strong>
+                    <p><%= perfil.usu_bio %></p>
+                </div>
+            </div>
+
+
+
+            <div class="perfilCats">
+                <a href="/perfil/<%= perfil.usu_codigo %>"><span>Publicações</span></a>
+                <a href="/perfil/<%= perfil.usu_codigo %>/comentarios"><span>Comentários</span></a>
+                <a href="/perfil/<%= perfil.usu_codigo %>/salvos"><span>Salvados</span></a>
+            </div>
+
+
+            <div class="dicas">
+                <% if (dicas && dicas .length > 0) { %>
+                    <% dicas .forEach(dic => { %>
+                        <div class="dicCard" data-categoria="<%= dic.cat_nome %>" data-codigo="<%= dic.dic_codigo %>">
+                            <div class="dicTitulo">
+                                <p class="dT"><%= dic.dic_titulo %></p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="infos">
+                                    <p class="info"><%= dic.adm_nome %>, <%= dic.dic_data %></p>
+                                </div>
+                                <a href="/salvarDic/<%= dic.dic_codigo %>" class="salvar" onclick="alertaSalvo(event)"><i class="fa-regular fa-bookmark" onclick="event.stopPropagation();"></i></a>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p class="no-pub">Nenhuma Dica para mostrar.</p>
+                <% } %>
+            </div>
 
             <div class="posts">
                 <div class="boxPosts">

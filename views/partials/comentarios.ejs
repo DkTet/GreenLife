@@ -1,0 +1,58 @@
+<div class="comentarios">
+    <h3>Comentários</h3>
+    <% if (comentarios.length > 0) { %>
+    <% comentarios.forEach(com => { %>
+        <% renderizarComentario(com); %>
+    <% }) %>
+    <% } else { %>
+        <p>Nenhum comentário ainda.</p>
+    <% } %>
+</div>
+
+<% function renderizarComentario(comentario) { %>
+    <div class="post">
+        <div class="perfil">
+        <div class="imgPerfil">
+            <img src="/images/imgPerfis/<%= comentario.usu_foto %>" alt="Avatar" class="imgComent">
+        </div>
+        <div class="infoPerfil">
+            <div class="nomeEtempo">
+                
+            <strong><a href="/perfil/<%= comentario.usu_codigo %>"><%= comentario.usu_nomeusuario %>#<%= comentario.usu_codigo %></a></strong>
+            <p class="timestamp"><%= comentario.com_criado %></p>
+            </div>
+            <p class="pub-content"><%= comentario.com_conteudo %></p>
+        </div>
+        </div>
+        <div class="pub-actions">
+        <a href="/curtirComent/<%= comentario.com_codigo %>"><i class="fa-solid fa-heart"></i><span><%= comentario.com_curtidas || 0 %></span></a>
+        <a href="/deslikeComent/<%= comentario.com_codigo %>"><i class="fa-solid fa-heart-crack"></i><span><%= comentario.com_deslikes || 0 %></span></a>
+        <a><i class="fa-solid fa-comments" style="cursor:pointer;" onclick="toggleResposta('<%= comentario.com_codigo %>')"> </i></a>
+        <!-- Formulário de resposta, inicialmente oculto TERMINAR A PARTE DE RESPONDER COMENTARIOs -->
+        <form id="resposta-<%= comentario.com_codigo %>" method="post" action="/responderComent/<%= publicacao.pub_codigo %>/<%= comentario.com_codigo %>" style="display:none; margin-top: 10px;">
+            <div class="form-resposta">
+                <textarea name="conteudo" required placeholder="Escreva sua resposta..." class="textRespC"></textarea>
+                <button type="submit" class="butaoRespC">Enviar</button>
+            </div>
+        </form>
+        </div>
+
+        <% if (comentario.respostas && comentario.respostas.length > 0) { %>
+            <div class="respostas" style="margin-left: 2rem;">
+                <% comentario.respostas.forEach(resp => { %>
+                <% renderizarComentario(resp); %>
+                <% }) %>
+            </div>
+        <% } %>
+    </div>
+<% } %>
+
+<script>
+  function toggleResposta(id) {
+    const form = document.getElementById('resposta-' + id);
+    if (form.style.display === 'none' || form.style.display === '') {
+      form.style.display = 'block';
+    } else {
+      form.style.display = 'none';
+    }}
+</script>

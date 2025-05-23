@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title> 
+    <link rel="stylesheet" href="/stylesheets/timeline.css">
+    <link rel="stylesheet" href="/stylesheets/perfil.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://kit.fontawesome.com/b9ccfa25cd.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <%- include('partials/sidebar') %>
+
+        <main class="feed">
+            <div class="blocoPerfil">
+                <div class="imgBackground">
+                    <img src="/images/imgPerfilBack/<%= perfil.usu_imgBackground %>" alt="imgBackground">
+                </div>
+                <div class="imgPerfil">
+                    <img src="/images/imgPerfis/<%= perfil.usu_foto %>" alt="imgPerfil">
+                </div>
+                <div class="user">
+                    <strong><%= perfil.usu_nomeusuario %>#<%= perfil.usu_codigo %></strong>
+                    <p><%= perfil.usu_bio %></p>
+                </div>
+            </div>
+
+
+
+            <div class="perfilCats">
+                <a href="/perfil/<%= perfil.usu_codigo %>"><span>Publicações</span></a>
+                <a href="/perfil/<%= perfil.usu_codigo %>/comentarios"><span>Comentários</span></a>
+                <a href="/perfil/<%= perfil.usu_codigo %>/salvos"><span>Salvados</span></a>
+            </div>
+
+            <div class="perfilConfigs">
+                <h1>Aqui vai as configurações</h1>
+            </div>
+
+
+        </main>
+
+
+        <%- include('partials/lateral') %>
+    </div>
+</body>
+
+<script>
+    function mostrarNomeImagem() {
+        const input = document.getElementById('imagem');
+        const label = document.getElementById('arquivoSelecionado');
+
+        if (input.files.length > 0) {
+            label.textContent = `Imagem: ${input.files[0].name}`;
+        } else {
+            label.textContent = "";
+        }
+    }
+</script>
+
+</html>

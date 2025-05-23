@@ -1,5 +1,5 @@
 const Test = require('supertest/lib/test');
-const { cadastrarUsuario, buscarUsuario, fecharBD} = require('../banco');
+const { cadastrarUsuario, buscarUsuario, fecharBD, fazerPost} = require('../banco');
 
 
 // TESTE CT01
@@ -67,7 +67,7 @@ const { cadastrarUsuario, buscarUsuario, fecharBD} = require('../banco');
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// TESTES SEM ESTAREM NA TABELA
+// TESTE Buscar Usuário
 
 // describe('CT-00?? - Buscar Usuario no banco', () => {
 //     const usuario = {
@@ -91,7 +91,41 @@ const { cadastrarUsuario, buscarUsuario, fecharBD} = require('../banco');
 // });
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+// /////////////////////////// TESTE DE POST
+
+// describe('CT-009 Fazer Fazer publicação com sucesso', () => {
+//     const usuario = {
+//         usu_codigo: 6};
+//     const publi = {
+//         conteudo: "Bom dia Comunidade! Espero que estejam bem",
+//         anexo: null
+//     };
+//     test('deve fazer um post', async () => {
+//         await expect(fazerPost(usuario, publi.conteudo, publi.anexo)).resolves.toBeUndefined();
+//     });
+// });
+
+
+
+// describe('CT-010 Fazer Fazer publicação com dados ínvalidos', () => {
+//     const publi = {
+//         conteudo: null,
+//         anexo: null
+//     };
+//     test('Publicação sem usuario, ou usuario inexistente, deve retornar um erro', async () => {
+//         const usuario = {
+//             usu_codigo: 8};
+//         await expect(fazerPost(usuario, publi.conteudo, publi.anexo)).rejects.toThrow();
+//     });
+//     test('Publicação sem conteudo, deve retornar um erro', async () => {
+//         const usuario = {
+//             usu_codigo: 6};
+//         await expect(fazerPost(usuario, publi.conteudo, publi.anexo)).rejects.toThrow();
+//     });
+// });
 
 
 

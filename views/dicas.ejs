@@ -16,27 +16,7 @@
 
 <body>
     <div class="container">
-        <aside class="sidebar">
-            <div class="logo">
-                <img src="/images/logo.png" alt="Logo GreenLife">
-                <h1>GreenLife</h1>
-            </div>
-
-            <div class="usuarioLogado">
-                <% if (usuario.usu_codigo) { %>
-                    <div class="imgLogado"><img src="/images/imgPerfis/<%= usuario.usu_foto %>" alt="Avatar"></div>
-                    <p><a href="/perfil/<%= usuario.usu_codigo %>"><%= usuario.usu_nomeusuario %>#<%= usuario.usu_codigo %></a></p>
-                <% } %>
-            </div>
-
-            <nav class="menu">
-                <a href="/timeline" class="menu-item"><i class="fa-solid fa-house"></i> Página Inicial</a>
-                <a href="/dicas" class="menu-item"><i class="fa-solid fa-fire-flame-curved"></i> Dicas</a>
-                <a href="/perfil/<%= usuario.usu_codigo %>/salvos" class="menu-item"><i class="fa-solid fa-bookmark"></i> Salvos</a>
-                <a href="/perfil/<%= usuario.usu_codigo %>" class="menu-item"><i class="fa-solid fa-user"></i> Perfil</a>
-                <a href="/sair" class="menu-item"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
-            </nav>
-        </aside>
+        <%- include('partials/sidebar') %>
 
         <main class="principal">
             <div class="categorias">
@@ -68,39 +48,7 @@
             </div>
         </main>
 
-        <aside class="lateral">
-            <div class="dica">
-                <h3>Dica do dia</h3>
-                <% dicaDia.forEach(dia => { %>
-                    <p><%= dia.dia_conteudo %></p>
-                <% }) %>
-            </div>
-
-            <div class="atividades">
-                <h3>Atividades Populares</h3>
-                <% if (atividades && atividades.length > 0) { %>
-                        <% atividades.forEach(atv => { %>
-                            <a href="/responderPubli/<%= atv.pub_codigo %>" class="att_link">
-                                <div class="att_perfil">
-                                    <div class="att_imgPerfil">
-                                        <img src="/images/imgPerfis/<%= atv.usu_foto %>" alt="Avatar">
-                                    </div>
-                                    <div class="att_infoPerfil">
-                                        <div class="att_nomeEtempo">
-                                            <strong class="att_username"><%= atv.usu_nomeusuario %>#<%= atv.usu_codigo %></strong>
-                                            <p class="att_timestamp"><%= atv.pub_criado %></p>
-                                        </div>
-                                        <p class="att_pub-content"><%= atv.pub_conteudo %></p>
-                                        <div class="att_anexo"><% if (atv.pub_anexo) { %> <img src="/images/imgPosts/<%= atv.pub_anexo %>" alt="Imagem do Post" class="att_imgPost"><% } %></div>
-                                    </div>
-                                </div>
-                            </a>
-                        <% }) %>
-                <% } else { %>
-                    <p class="no-pub">Nenhuma publicação para mostrar.</p>
-                <% } %>
-            </div>
-        </aside>
+        <%- include('partials/lateral') %>
     </div>
 </body>
 

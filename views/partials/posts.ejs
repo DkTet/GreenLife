@@ -1,0 +1,27 @@
+<div class="post">
+    <div class="perfil">
+        <div class="imgPerfil">
+            <img src="/images/imgPerfis/<%= pub.usu_foto %>" alt="Avatar">
+        </div>
+        <div class="infoPerfil">
+            <div class="nomeEtempo">
+                <strong class="username"><a href="/perfil/<%= pub.usu_codigo %>"><%= pub.usu_nomeusuario %>#<%= pub.usu_codigo %></a></strong>
+                <p class="timestamp"><%= pub.pub_criado %></p>
+            </div>
+            <% if (pub.pub_repostado) { %>
+                <div class="reposts">
+                    <p>🔁 Repostado de <a href="/responderPubli/<%= pub.pub_repostado %>"><%= pub.user_original %></a></p>
+                </div>
+            <% } %>
+            <p class="pub-content"><%= pub.pub_conteudo %></p>
+            <div class="anexo"><% if (pub.pub_anexo) { %> <img src="/images/imgPosts/<%= pub.pub_anexo %>" alt="Imagem do Post" class="imgPost"><% } %></div>
+        </div>
+    </div>
+
+    <div class="pub-actions">
+        <a href="/responderPubli/<%= pub.pub_codigo %>"><i class="fa-solid fa-comments"></i><span><%= pub.pub_qtdrespostas || 0 %></span></a>
+        <a href="/repostar/<%= pub.pub_codigo %>"><i class="fa-solid fa-repeat"></i><span><%= pub.pub_qtdrepostado || 0 %></span></a>
+        <a href="/curtir/<%= pub.pub_codigo %>"><i class="fa-solid fa-heart"></i><span><%= pub.pub_qtdcurtiu || 0 %></span></a>
+        <a href="/salvar/<%= pub.pub_codigo %>"><i class="fa-solid fa-bookmark"></i><span><%= pub.pub_qtdsalvo || 0 %></span></a>
+    </div>
+</div>
