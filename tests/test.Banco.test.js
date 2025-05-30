@@ -1,8 +1,8 @@
 const Test = require('supertest/lib/test');
-const { cadastrarUsuario, buscarUsuario, fecharBD, fazerPost} = require('../banco');
+const { cadastrarUsuario, buscarUsuario, fecharBD, fazerPost, buscarFeed, BuscarPubliPorId} = require('../banco');
 
 
-// TESTE CT01
+// // TESTE CT01
 
 
 // describe('CT-001 - Criar usuário com dados válidos', () => {
@@ -22,7 +22,7 @@ const { cadastrarUsuario, buscarUsuario, fecharBD, fazerPost} = require('../banc
 // });
 
 
-// TESTE CT02
+// // TESTE CT02
 
 // describe('CT-002 - Criar usuário com e-mail já cadastrado', () => {
 //     const usuario = {
@@ -36,7 +36,7 @@ const { cadastrarUsuario, buscarUsuario, fecharBD, fazerPost} = require('../banc
 
 
 
-// TESTE CT03
+// // TESTE CT03
 
 // describe('CT-003	Criar usuário com username já cadastrado', () => {
 //     const usuario = {
@@ -49,13 +49,13 @@ const { cadastrarUsuario, buscarUsuario, fecharBD, fazerPost} = require('../banc
 // });
 
 
-// TESTE CT04
+// // TESTE CT04
 
 // describe('CT-004 Criar usuário com campos obrigatórios vazios', () => {
 //     const usuario = {
-//         user: "",
-//         email: "",
-//         senha: ""
+//         user: null,
+//         email: null,
+//         senha: null
 //     };
 //     test('deve lançar erro ao tentar cadastrar um usuário com informações vazias', async () => {
 //         await expect(cadastrarUsuario(usuario.user, usuario.email, usuario.senha)).rejects.toThrow();
@@ -64,37 +64,45 @@ const { cadastrarUsuario, buscarUsuario, fecharBD, fazerPost} = require('../banc
 
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// TESTE Buscar Usuário
+// // TESTE Login
 
-// describe('CT-00?? - Buscar Usuario no banco', () => {
+// describe('Testes de Login', () => {
 //     const usuario = {
 //         user: "VictoryGrey",
 //         email: "victory@gmail.com",
 //         senha: "Vic123"};
 //     const usuario2 = {
-//         user: "TesteDeExistencia",
-//         email: "existentencia@gmail.com",
-//         senha: "exe123"};
+//         user: "VictoryGrey",
+//         email: "victory@gmail.com",
+//         senha: "Vic123456789"};
+//     const usuario3 = { 
+//         email: "victory2@gmail.com", 
+//         senha: "sVic12345"};
         
-//     test('retorna usuário', async () => {
+//     test('CT-005 - Login com credenciais corretas', async () => {
 //         const usuarioCadastrado = await buscarUsuario(usuario);
 //         expect(usuarioCadastrado.usu_nomeusuario).toBe(usuario.user);
 //         expect(usuarioCadastrado.usu_email).toBe(usuario.email);
 //     });
-//     test('não retorna usuario', async () => {
+//     test('CT-006 - Login com senha incorreta', async () => {
 //         const result = await buscarUsuario(usuario2);
+//         expect(result).toBeNull();
+//     });
+
+//     test('CT-007 - Login com usuário inexistente', async () => {
+//         const result = await buscarUsuario(usuario3);
 //         expect(result).toBeNull();
 //     });
 // });
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// /////////////////////////// TESTE DE POST
+// // /////////////////////////// TESTE DE POST
 
 // describe('CT-009 Fazer Fazer publicação com sucesso', () => {
 //     const usuario = {
@@ -131,8 +139,71 @@ const { cadastrarUsuario, buscarUsuario, fecharBD, fazerPost} = require('../banc
 
 
 
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+// // /////////////////////////// TESTE DE BUSCAR FEED
+
+// describe('CT-030 - Buscar feed com publicações existentes', () => {
+//    test('deve retornar uma lista de publicações com campos esperados', async () => {
+//        const resultado = await buscarFeed();
+
+//        expect(Array.isArray(resultado)).toBe(true);
+//        expect(resultado.length).toBeGreaterThan(0);
+
+//        const publicacao = resultado[0];
+
+//        expect(publicacao).toHaveProperty('pub_codigo');
+//        expect(publicacao).toHaveProperty('pub_conteudo');
+//        expect(publicacao).toHaveProperty('pub_criado');
+//        expect(publicacao).toHaveProperty('pub_repostado');
+//        expect(publicacao).toHaveProperty('pub_qtdrespostas');
+//        expect(publicacao).toHaveProperty('pub_qtdrepostado');
+//        expect(publicacao).toHaveProperty('pub_qtdcurtiu');
+//        expect(publicacao).toHaveProperty('pub_qtdsalvo');
+//        expect(publicacao).toHaveProperty('pub_anexo');
+//        expect(publicacao).toHaveProperty('usu_nomeusuario');
+//        expect(publicacao).toHaveProperty('usu_foto');
+//        expect(publicacao).toHaveProperty('usu_codigo');
+//        expect(publicacao).toHaveProperty('user_original');
+//     });
+// });
+
+// describe('CT-031 - Verificar limite máximo de publicações retornadas', () => {
+//  test('não deve retornar mais que 100 publicações', async () => {
+//    const resultado = await buscarFeed();
+//    expect(resultado.length).toBeLessThanOrEqual(100);
+//   });
+// });
+
+// describe('CT-032 - Buscar publicação por ID existente', () => {
+//     test('deve retornar a publicação correta', async () => {
+//         const id = 5;
+//         const publi = await BuscarPubliPorId(id);
+
+//         expect(publi).not.toBeNull();
+//         expect(publi).toHaveProperty('pub_codigo', id);
+//         expect(publi).toHaveProperty('pub_conteudo');
+//         expect(publi).toHaveProperty('pub_criado');
+//     });
+// });
+
+// describe('CT-033 - Buscar publicação por ID inexistente', () => {
+//    test('deve retornar null se não existir publicação com esse ID', async () => {
+//         const id = 9999; 
+//         const publi = await BuscarPubliPorId(id);
+//         expect(publi).toBeNull();
+//    });
+// });
+
+// describe('CT-034 - Buscar feed vazio', () => {
+//       test('deve retornar uma lista vazia quando não há publicações', async () => {
+//          const resultado = await buscarFeed();
+ 
+//          expect(Array.isArray(resultado)).toBe(true);
+//          expect(resultado.length).toBe(0);
+//      });
+// });
 
 
 

@@ -12,6 +12,11 @@ create table usuarios (
 	usu_suspenso tinyint default 0
 );
 
+alter table usuarios add constraint UQ_usu_nomeusuario unique (usu_nomeusuario);
+alter table usuarios add constraint UQ_usu_email unique (usu_email);
+alter table usuarios add column usu_imgBackground varchar(50) default "default.png" after usu_foto;
+alter table usuarios add column usu_bio varchar(255) after usu_imgBackground;
+
 -- Tabela de Admins
 create table admins (
 	adm_codigo int not null auto_increment primary key,
